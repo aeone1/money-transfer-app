@@ -1,24 +1,30 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  CreateUserDto,
+  FindUserResponseDto,
+  UpdateUserDto,
+  UserResponseDto,
+} from './data-transfer-object/user.dto';
 
 @Controller('user')
 export class UserController {
   @Get()
-  getUsers() {
+  getUsers(): FindUserResponseDto[] {
     return 'Get All Users';
   }
 
   @Get('/:userId')
-  getUser() {
+  getUser(): FindUserResponseDto {
     return 'Get User By Id';
   }
 
   @Post()
-  registerUser() {
+  registerUser(@Body() body: CreateUserDto): UserResponseDto {
     return 'User registered';
   }
 
   @Put('/:userId')
-  updateUser() {
+  updateUser(@Body() body: UpdateUserDto): UserResponseDto {
     return 'Updated User';
   }
 
