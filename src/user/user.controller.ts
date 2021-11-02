@@ -11,22 +11,26 @@ import {
 export class UserController {
   @Get()
   getUsers(): FindUserResponseDto[] {
-    return 'Get All Users';
+    const res = new FindUserResponseDto();
+    return [res];
   }
 
   @Get('/:userId')
   getUser(): FindUserResponseDto {
-    return 'Get User By Id';
+    const res = new FindUserResponseDto();
+    return res;
   }
 
   @Post()
   registerUser(@Body() body: CreateUserDto): UserResponseDto {
-    return 'User registered';
+    const res = new UserResponseDto();
+    return res;
   }
 
   @Put('/:userId')
   updateUser(@Body() body: UpdateUserDto): UserResponseDto {
-    return 'Updated User';
+    const res = new UserResponseDto();
+    return res;
   }
 
   @Delete('/:userId')
@@ -36,7 +40,8 @@ export class UserController {
 
   @Get('/:userId/balance')
   getUserBalance(): UserBalanceResponseDto {
-    return 'User Account Balance';
+    const res = new UserBalanceResponseDto();
+    return res;
   }
 
   @Post('/:userId/transfer/:fund/:recipientId')

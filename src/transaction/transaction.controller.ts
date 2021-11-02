@@ -9,17 +9,22 @@ import {
 export class TransactionController {
   @Get()
   getTransactions(): FindTransactionResponseDto[] {
-    return 'Get All Transactions';
+    const res = new FindTransactionResponseDto();
+    return [res];
   }
 
   @Get('/:transactionId')
   getTransactionById(): FindTransactionResponseDto {
-    return 'Get A Transaction By its Id';
+    const res = new FindTransactionResponseDto();
+    return res;
   }
 
   @Put('/:transactionId')
-  updateTransaction(@Body() body: UpdateTransactionDto): TransactionResponseDto {
-    return 'Transaction Updated';
+  updateTransaction(
+    @Body() body: UpdateTransactionDto,
+  ): TransactionResponseDto {
+    const res = new TransactionResponseDto();
+    return res;
   }
 
   @Delete('/:transactionId')
