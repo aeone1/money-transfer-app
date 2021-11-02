@@ -4,6 +4,7 @@ import {
   FindUserResponseDto,
   UpdateUserDto,
   UserResponseDto,
+  UserBalanceResponseDto,
 } from './data-transfer-object/user.dto';
 
 @Controller('user')
@@ -34,7 +35,7 @@ export class UserController {
   }
 
   @Get('/:userId/balance')
-  getUserBalance() {
+  getUserBalance(): UserBalanceResponseDto {
     return 'User Account Balance';
   }
 

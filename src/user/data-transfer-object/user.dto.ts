@@ -10,6 +10,11 @@ export class UserResponseDto {
   login: string;
 }
 
+export class UserBalanceResponseDto {
+  id: string;
+  name: string;
+  login: string;
+}
 export class CreateUserDto {
   name: string;
   login: string;
