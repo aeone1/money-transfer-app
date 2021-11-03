@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { User } from 'src/entity/user/User';
 import {
   CreateUserDto,
   FindUserResponseDto,
@@ -6,25 +15,25 @@ import {
   UserResponseDto,
   UserBalanceResponseDto,
 } from './data-transfer-object/user.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
+
   @Get()
-  getUsers(): FindUserResponseDto[] {
-    const res = new FindUserResponseDto();
-    return [res];
+  async getUsers(): Promise<User[]> {
+    return this.userService.getUsers();
   }
 
   @Get('/:userId')
-  getUser(): FindUserResponseDto {
-    const res = new FindUserResponseDto();
-    return res;
+  getUserById(@Param('userId') userId: string): Promise<User> {
+    return this.userService.getUserById(userId);
   }
 
   @Post()
-  registerUser(@Body() body: CreateUserDto): UserResponseDto {
-    const res = new UserResponseDto();
-    return res;
+  registerUser(@Body() body: User): Promise<User> {
+    return this.userService.registerUser(body);
   }
 
   @Put('/:userId')

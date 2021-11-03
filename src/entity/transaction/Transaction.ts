@@ -2,7 +2,7 @@ import {
   BaseEntity,
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
@@ -16,9 +16,7 @@ export enum TransactionStatus {
 
 @Entity('transaction')
 export class Transaction extends BaseEntity {
-  @PrimaryColumn({
-    type: 'uuid',
-  })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({

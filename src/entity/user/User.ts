@@ -2,7 +2,7 @@ import {
   BaseEntity,
   Entity,
   Column,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
@@ -10,15 +10,15 @@ import {
 
 @Entity('user')
 export class User extends BaseEntity {
-  @PrimaryColumn({
-    type: 'uuid',
-  })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   login: string;
 
   @Column({

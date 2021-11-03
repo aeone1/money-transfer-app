@@ -11,9 +11,9 @@ const config: PostgresConnectionOptions = {
   synchronize: true,
   logging: false,
   logger: 'file',
-  entities: ['dist/src/entity/**/*.ts'],
-  migrations: ['dist/src/migration/**/*.ts'],
-  subscribers: ['dist/src/subscriber/**/*.ts'],
+  entities: ['dist/src/entity/**/*.js'],
+  migrations: ['dist/src/migration/**/*.js'],
+  subscribers: ['dist/src/subscriber/**/*.js'],
   cli: {
     migrationsDir: 'src/migration',
   },
