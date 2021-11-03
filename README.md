@@ -30,6 +30,9 @@
 
 ```bash
 $ npm install
+
+# Database PG and Adminer
+$ docker-compose up
 ```
 
 ## Running the app

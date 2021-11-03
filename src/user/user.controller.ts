@@ -8,13 +8,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { User } from 'src/entity/user/User';
-import {
-  CreateUserDto,
-  FindUserResponseDto,
-  UpdateUserDto,
-  UserResponseDto,
-  UserBalanceResponseDto,
-} from './data-transfer-object/user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -37,21 +30,24 @@ export class UserController {
   }
 
   @Put('/:userId')
-  updateUser(@Body() body: UpdateUserDto): UserResponseDto {
-    const res = new UserResponseDto();
-    return res;
+  updateUser(
+    @Body() body: User,
+    @Param('userId') userId: string,
+  ): Promise<User> {
+    body.id = userId;
+    return this.userService.updateUser(body);
   }
 
   @Delete('/:userId')
-  deleteUserById() {
-    return 'User Deleted';
+  deleteUserById(@Param('userId') userId: string): Promise<User> {
+    return this.userService.deleteUserById(userId);
   }
 
-  @Get('/:userId/balance')
-  getUserBalance(): UserBalanceResponseDto {
-    const res = new UserBalanceResponseDto();
-    return res;
-  }
+  // @Get('/:userId/balance')
+  // getUserBalance(): UserBalanceResponseDto {
+  //   const res = new UserBalanceResponseDto();
+  //   return res;
+  // }
 
   @Post('/:userId/transfer/:fund/:recipientId')
   transferFunds() {

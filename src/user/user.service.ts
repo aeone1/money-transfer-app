@@ -28,4 +28,17 @@ export class UserService {
     const newUser = this.userRepository.create(body);
     return this.userRepository.save(newUser);
   }
+
+  async updateUser(body: User): Promise<User> {
+    await this.getUserById(body.id);
+    return this.userRepository.save(body);
+  }
+
+  async deleteUserById(userId: string): Promise<User> {
+    const user = await this.getUserById(userId);
+    //return this.userRepository.remove(user); //Hard delete
+    const dateTime = new Date();
+    user.deleted_at = dateTime;
+    return this.userRepository.save(user); //Soft delete
+  }
 }
