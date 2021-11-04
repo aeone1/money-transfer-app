@@ -6,7 +6,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Transaction } from '../transaction/Transaction';
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -32,6 +34,9 @@ export class User extends BaseEntity {
     name: 'card_number',
   })
   cardNumber: string;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.sender)
+  transactions: Transaction[];
 
   @Column({
     default: false,

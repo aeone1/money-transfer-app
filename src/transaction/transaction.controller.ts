@@ -1,34 +1,48 @@
-import { Body, Controller, Delete, Get, Put } from '@nestjs/common';
 import {
-  UpdateTransactionDto,
-  FindTransactionResponseDto,
-  TransactionResponseDto,
-} from './data-transfer-object/transaction.dto';
-
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { Transaction } from 'src/entity/transaction/Transaction';
+import { TransactionService } from './transaction.service';
 @Controller('transaction')
 export class TransactionController {
+  constructor(private readonly transactionService: TransactionService) {}
+
   @Get()
-  getTransactions(): FindTransactionResponseDto[] {
-    const res = new FindTransactionResponseDto();
-    return [res];
+  getTransactions(): Promise<Transaction[]> {
+    return this.transactionService.getTransactions();
   }
 
   @Get('/:transactionId')
-  getTransactionById(): FindTransactionResponseDto {
-    const res = new FindTransactionResponseDto();
-    return res;
+  getTransactionById(
+    @Param('transactionId') transactionId: string,
+  ): Promise<Transaction> {
+    return this.transactionService.getTransactionById(transactionId);
+  }
+
+  @Post()
+  createTransaction(body: Transaction): Promise<Transaction> {
+    return this.transactionService.createTransaction(body);
   }
 
   @Put('/:transactionId')
   updateTransaction(
-    @Body() body: UpdateTransactionDto,
-  ): TransactionResponseDto {
-    const res = new TransactionResponseDto();
-    return res;
+    @Body() body: Transaction,
+    @Param('transactionId') transactionId: string,
+  ): Promise<Transaction> {
+    body.id = transactionId;
+    return this.transactionService.updateTransaction(body);
   }
 
   @Delete('/:transactionId')
-  deleteTransaction() {
-    return 'Transaction Deleted';
+  deleteTransactionById(
+    @Param('transactionId') transactionId: string,
+  ): Promise<Transaction> {
+    return this.transactionService.deleteTransactionById(transactionId);
   }
 }

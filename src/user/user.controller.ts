@@ -7,7 +7,12 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { Transaction } from 'src/entity/transaction/Transaction';
 import { User } from 'src/entity/user/User';
+import {
+  UserBalanceResponseDto,
+  UserTransferBody,
+} from './data-transfer-object/user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -22,6 +27,13 @@ export class UserController {
   @Get('/:userId')
   getUserById(@Param('userId') userId: string): Promise<User> {
     return this.userService.getUserById(userId);
+  }
+
+  @Get('/:userId/transactions')
+  getUserTransactionsById(
+    @Param('userId') userId: string,
+  ): Promise<Transaction[]> {
+    return this.userService.getUserTransactionsById(userId);
   }
 
   @Post()
@@ -43,14 +55,20 @@ export class UserController {
     return this.userService.deleteUserById(userId);
   }
 
-  // @Get('/:userId/balance')
-  // getUserBalance(): UserBalanceResponseDto {
-  //   const res = new UserBalanceResponseDto();
-  //   return res;
-  // }
+  @Get('/:userId/balance')
+  getUserBalanceById(
+    @Param('userId') userId: string,
+  ): Promise<UserBalanceResponseDto> {
+    return this.userService.getUserBalanceById(userId);
+  }
 
   @Post('/:userId/transfer/:fund/:recipientId')
-  transferFunds() {
-    return 'Funds transfered';
+  transferFunds(
+    @Param('userId') userId: string,
+    @Param('fund') fund: number,
+    @Param('recipientId') recipientId: string,
+    @Body() body: UserTransferBody,
+  ): Promise<Transaction> {
+    return this.userService.transferFunds(userId, fund, recipientId, body);
   }
 }

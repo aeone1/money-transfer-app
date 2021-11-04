@@ -6,6 +6,7 @@ import config from '../../ormconfig';
 import { User } from 'src/entity/user/User';
 import { Transaction } from 'src/entity/transaction/Transaction';
 import { UserService } from '../user/user.service';
+import { TransactionService } from '../transaction/transaction.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { UserService } from '../user/user.service';
     TypeOrmModule.forFeature([User, Transaction]),
   ],
   controllers: [UserController, TransactionController],
-  providers: [UserService],
+  providers: [UserService, TransactionService],
 })
 export class AppModule {}

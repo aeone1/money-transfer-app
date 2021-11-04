@@ -12,8 +12,7 @@ export class UserResponseDto {
 
 export class UserBalanceResponseDto {
   id: string;
-  name: string;
-  login: string;
+  balance: number;
 }
 export class CreateUserDto {
   name: string;
@@ -23,4 +22,8 @@ export class CreateUserDto {
 export class UpdateUserDto {
   name: string;
   login: string;
+}
+
+export class UserTransferBody {
+  comment: string;
 }
